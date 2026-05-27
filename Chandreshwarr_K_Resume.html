@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chandreshwarr K – Game QA Engineer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Raleway:wght@700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0f172a;
+      --teal:   #0ea5e9;
+      --teal2:  #0284c7;
+      --slate:  #1e293b;
+      --light:  #f8fafc;
+      --muted:  #94a3b8;
+      --text:   #1e293b;
+      --border: #e2e8f0;
+      --accent: #06b6d4;
+    }
+
+    html { font-size: 10.5px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── LAYOUT ──────────────────────────────────── */
+    .page {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      min-height: 100vh;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 0 40px rgba(0,0,0,.12);
+    }
+
+    /* ── SIDEBAR ─────────────────────────────────── */
+    .sidebar {
+      background: var(--navy);
+      color: #cbd5e1;
+      padding: 36px 22px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .avatar-ring {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      border: 3px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--slate);
+      font-family: 'Raleway', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--teal);
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+    .sidebar-name {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1.25;
+    }
+    .sidebar-title {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .s-section { display: flex; flex-direction: column; gap: 8px; }
+    .s-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--teal);
+      border-bottom: 1px solid #1e3a5f;
+      padding-bottom: 4px;
+      margin-bottom: 4px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+    .contact-item .icon {
+      width: 16px; flex-shrink: 0;
+      color: var(--teal);
+      margin-top: 1px;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      background: #1e3a5f;
+      border: 1px solid #2d5186;
+      color: #bae6fd;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 0.74rem;
+      margin: 2px 2px 2px 0;
+      font-weight: 500;
+    }
+
+    .tool-row {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .tool-row strong {
+      color: #bae6fd;
+      font-weight: 600;
+      display: block;
+      font-size: 0.73rem;
+      margin-bottom: 1px;
+    }
+
+    .cert-box {
+      background: #1e3a5f;
+      border-left: 3px solid var(--teal);
+      border-radius: 4px;
+      padding: 10px 12px;
+    }
+    .cert-box .cert-title {
+      color: #e0f2fe;
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .cert-box .cert-issuer {
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .cert-box .cert-meta {
+      color: #64748b;
+      font-size: 0.7rem;
+      margin-top: 2px;
+    }
+    .cert-box .cert-note {
+      color: #94a3b8;
+      font-size: 0.7rem;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    /* ── MAIN ────────────────────────────────────── */
+    .main {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* top header bar */
+    .main-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      padding: 32px 36px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .main-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(14,165,233,.08);
+      transform: translate(40%, 40%);
+    }
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: 60px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(6,182,212,.06);
+    }
+    .mh-name {
+      font-family: 'Raleway', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #f8fafc;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .mh-name span { color: var(--teal); }
+    .mh-role {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #7dd3fc;
+      margin-top: 6px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .mh-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .mh-tag {
+      background: rgba(14,165,233,.15);
+      border: 1px solid rgba(14,165,233,.3);
+      color: #7dd3fc;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* main body */
+    .main-body { padding: 26px 36px 36px; display: flex; flex-direction: column; gap: 22px; }
+
+    /* summary */
+    .summary-box {
+      background: #f0f9ff;
+      border-left: 4px solid var(--teal);
+      border-radius: 0 6px 6px 0;
+      padding: 14px 18px;
+    }
+    .summary-box p {
+      font-size: 0.84rem;
+      color: #334155;
+      line-height: 1.65;
+    }
+    .summary-box strong { color: var(--teal2); }
+
+    /* section headings */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .section-head h2 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .section-head .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal) 0%, transparent 100%);
+      border-radius: 2px;
+    }
+
+    /* experience */
+    .exp-item { margin-bottom: 18px; }
+    .exp-item:last-child { margin-bottom: 0; }
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .exp-company {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .exp-company .remote-tag {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+      margin-left: 6px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .exp-date {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--teal2);
+      white-space: nowrap;
+      background: #e0f2fe;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .exp-role {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 7px;
+    }
+
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .exp-list li {
+      font-size: 0.79rem;
+      color: #475569;
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .exp-list li::before {
+      content: '▸';
+      color: var(--teal);
+      position: absolute;
+      left: 0;
+      font-size: 0.7rem;
+      top: 1px;
+    }
+
+    /* highlights strip */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .hl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.77rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+    .hl-item .hl-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    /* education */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .edu-degree { font-size: 0.84rem; font-weight: 700; color: var(--navy); }
+    .edu-school { font-size: 0.77rem; color: #64748b; margin-top: 2px; }
+    .edu-date {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--teal2);
+      white-space: nowrap;
+      text-align: right;
+    }
+    .edu-loc { font-size: 0.71rem; color: #94a3b8; text-align: right; margin-top: 2px; }
+
+    /* print */
+    @media print {
+      html { font-size: 9.5px; }
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: 100%; }
+      .sidebar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .main-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    @page { size: A4; margin: 0; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <aside class="sidebar">
+
+    <div class="avatar-wrap">
+      <div class="avatar-ring">CK</div>
+      <div>
+        <div class="sidebar-name">Chandreshwarr K</div>
+        <div class="sidebar-title">Game QA Engineer</div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="s-section">
+      <div class="s-label">Contact</div>
+
+      <div class="contact-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+        +91 8825474353
+      </div>
+
+      <div class="contact-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        chandreshwarr.k@gmail.com
+      </div>
+
+      <div class="contact-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin.com/in/chandreshwarr-k
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="s-section">
+      <div class="s-label">Core Skills</div>
+      <div>
+        <span class="skill-tag">Functional Testing</span>
+        <span class="skill-tag">Regression Testing</span>
+        <span class="skill-tag">Exploratory Testing</span>
+        <span class="skill-tag">Compliance Testing</span>
+        <span class="skill-tag">LiveOps QA</span>
+        <span class="skill-tag">Cross-Platform</span>
+        <span class="skill-tag">Test Case Design</span>
+        <span class="skill-tag">Bug Lifecycle</span>
+        <span class="skill-tag">Smoke &amp; Sanity</span>
+        <span class="skill-tag">Agile / Scrum</span>
+        <span class="skill-tag">Release Validation</span>
+        <span class="skill-tag">UI/UX Validation</span>
+      </div>
+    </div>
+
+    <!-- TOOLS & PLATFORMS -->
+    <div class="s-section">
+      <div class="s-label">Tools &amp; Platforms</div>
+      <div class="tool-row"><strong>Bug Tracking</strong>JIRA · Bonsai · Hansoft</div>
+      <div class="tool-row"><strong>Console Dev Tools</strong>Neighborhood (PS4) · Target Manager (PS5) · GDK / XDK (Xbox)</div>
+      <div class="tool-row"><strong>Platforms Tested</strong>PS4 · PS5 · Xbox One · Xbox Series · PC</div>
+      <div class="tool-row"><strong>Automation (Basics)</strong>Python · Selenium · PyTest</div>
+    </div>
+
+    <!-- CERTIFICATION -->
+    <div class="s-section">
+      <div class="s-label">Certifications</div>
+      <div class="cert-box">
+        <div class="cert-title">Python Automation Testing Course</div>
+        <div class="cert-issuer">GUVI · HCL &amp; IITM Incubated</div>
+        <div class="cert-meta">Duration: 7 Months &nbsp;|&nbsp; May 2026</div>
+        <div class="cert-note">Fundamentals of Python scripting, test automation concepts, Selenium basics, and PyTest framework for automated test execution.</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <main class="main">
+
+    <!-- header bar -->
+    <div class="main-header">
+      <div class="mh-name">Chandreshwarr <span>K</span></div>
+      <div class="mh-role">Game QA Engineer &nbsp;·&nbsp; 4+ Years Experience</div>
+      <div class="mh-tags">
+        <span class="mh-tag">PC · Console · Mobile</span>
+        <span class="mh-tag">AAA Titles</span>
+        <span class="mh-tag">LiveOps</span>
+        <span class="mh-tag">Xbox Compliance</span>
+        <span class="mh-tag">Agile</span>
+        <span class="mh-tag">Remote-Ready</span>
+      </div>
+    </div>
+
+    <div class="main-body">
+
+      <!-- SUMMARY -->
+      <div>
+        <div class="section-head"><h2>Profile</h2><div class="line"></div></div>
+        <div class="summary-box">
+          <p>
+            <strong>Detail-oriented Game QA Engineer</strong> with <strong>4+ years</strong> of hands-on experience across service-based and product-based gaming studios. Proven track record in functional, regression, compliance, exploratory, and <strong>LiveOps testing</strong> for PC, Console (PS4/PS5, Xbox One/Series), and mobile platforms. Experienced in <strong>defect lifecycle management</strong>, sprint-based Agile workflows, and release validation — with added foundational knowledge in <strong>Python test automation</strong>. Known for thorough documentation, proactive process improvements, and bridging communication between development and QA teams.
+          </p>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div>
+        <div class="section-head"><h2>Experience</h2><div class="line"></div></div>
+
+        <!-- DECA GAMES -->
+        <div class="exp-item">
+          <div class="exp-top">
+            <div class="exp-company">
+              DECA Games
+              <span class="remote-tag">Remote</span>
+            </div>
+            <div class="exp-date">Jun 2025 – Present</div>
+          </div>
+          <div class="exp-role">Test Engineer</div>
+          <ul class="exp-list">
+            <li>Own end-to-end testing across live game products — features, content updates, events, builds, and hotfix releases prior to production deployment.</li>
+            <li>Execute regression, smoke, sanity, and exploratory testing cycles for high-frequency live releases, maintaining zero critical escapes.</li>
+            <li>Log and prioritize defects in JIRA; collaborate directly with developers, producers, and designers to accelerate resolution.</li>
+            <li>Validate backend configurations including in-game economy, rewards, store items, seasonal events, and monetization features.</li>
+            <li>Support LiveOps QA for time-limited events and production rollouts, ensuring seamless player-facing experiences.</li>
+            <li>Participate in Agile ceremonies (sprint planning, standups, retrospectives) and maintain test cases, checklists, and release readiness docs.</li>
+          </ul>
+        </div>
+
+        <!-- SIDE / PTW -->
+        <div class="exp-item">
+          <div class="exp-top">
+            <div class="exp-company">SIDE (formerly PTW), Bengaluru</div>
+            <div class="exp-date">Apr 2022 – May 2025</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div class="exp-role" style="margin-bottom:6px;">Test Engineer &nbsp;<span style="font-size:0.72rem;color:#94a3b8;font-weight:400;">(Jan 2023 – May 2025)</span></div>
+            <ul class="exp-list">
+              <li>Designed, created, and executed test plans and test cases for AAA game titles across PC, Xbox One, and PlayStation platforms.</li>
+              <li>Conducted functionality, performance, and exploratory testing to surface game-breaking bugs beyond predefined test cases.</li>
+              <li>Assisted with <strong>multiple AAA title Xbox compliance submissions</strong>, ensuring all certification requirements were met successfully.</li>
+              <li>Served as <strong>Point of Contact (POC)</strong> for select projects — coordinating between clients and internal QA teams, managing priorities, and communicating status updates.</li>
+              <li>Improved bug tracking systems and contributed to test suite enhancements aligned with evolving project requirements.</li>
+              <li>Conducted knowledge-sharing sessions covering test case creation, bug reporting best practices, and test execution strategies.</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="exp-role" style="margin-bottom:6px;">Trainee Test Engineer &nbsp;<span style="font-size:0.72rem;color:#94a3b8;font-weight:400;">(Apr 2022 – Dec 2022)</span></div>
+            <ul class="exp-list">
+              <li>Performed regression, functional, and compatibility testing for new game builds and patches across multiple devices and OS configurations.</li>
+              <li>Documented defects with clear reproduction steps, screenshots, and logs to enable rapid developer triage.</li>
+              <li>Participated in game playthroughs to validate gameplay consistency, UI/UX behavior, and interface functionality.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- HIGHLIGHTS -->
+      <div>
+        <div class="section-head"><h2>Key Highlights</h2><div class="line"></div></div>
+        <div class="highlights-grid">
+          <div class="hl-item"><div class="hl-dot"></div>In-depth knowledge of Xbox compliance standards and certification requirements for AAA titles</div>
+          <div class="hl-item"><div class="hl-dot"></div>Served as Point of Contact (POC) coordinating client communications and team deliverables</div>
+          <div class="hl-item"><div class="hl-dot"></div>Proactive in identifying process gaps and improving QA methodologies and documentation</div>
+          <div class="hl-item"><div class="hl-dot"></div>Led internal knowledge-sharing sessions on test case creation and bug reporting standards</div>
+          <div class="hl-item"><div class="hl-dot"></div>Experience across both service-based (SIDE/PTW) and product-based (DECA Games) studios</div>
+          <div class="hl-item"><div class="hl-dot"></div>Foundational Python automation skills — actively expanding into test automation tooling</div>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div>
+        <div class="section-head"><h2>Education</h2><div class="line"></div></div>
+        <div class="edu-row">
+          <div>
+            <div class="edu-degree">Bachelor of Engineering – Mechanical Engineering</div>
+            <div class="edu-school">Adhiyamaan College of Engineering</div>
+          </div>
+          <div>
+            <div class="edu-date">2017 – 2021</div>
+            <div class="edu-loc">Hosur, Tamil Nadu</div>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div>
+            <div class="edu-degree">Higher Secondary Certificate (12th)</div>
+            <div class="edu-school">Sri Vijay Vidyalaya Higher Secondary School</div>
+          </div>
+          <div>
+            <div class="edu-date">April 2017</div>
+            <div class="edu-loc">Krishnagiri, Tamil Nadu</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+</body>
+</html>
