@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brand Kit — Desk & Room Aesthetic Creator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base:    #080c10;
+      --bg-surface: #0e1318;
+      --bg-card:    #131920;
+      --bg-hover:   #192028;
+      --border:     #1e2830;
+      --border-lit: #2a3848;
+      --text-pri:   #e8edf2;
+      --text-sec:   #7a8fa0;
+      --text-mute:  #3d4f60;
+      --accent:     #3b8eff;
+      --accent-dim: #1a3a66;
+
+      /* Vibe colours */
+      --dark:    #9b59f7;
+      --dark-bg: rgba(155,89,247,0.12);
+      --minimal: #30d5c8;
+      --minimal-bg: rgba(48,213,200,0.10);
+      --cozy:    #f5a623;
+      --cozy-bg: rgba(245,166,35,0.12);
+      --tech:    #3b8eff;
+      --tech-bg: rgba(59,142,255,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-pri);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .wrapper { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ── Header ── */
+    header {
+      padding: 60px 0 48px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    header .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--text-mute);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    header .eyebrow span { color: var(--accent); }
+    header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      background: linear-gradient(135deg, #e8edf2 0%, #6b8fa8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    header p {
+      color: var(--text-sec);
+      font-size: 15px;
+      max-width: 520px; margin: 0 auto 32px;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 7px 16px; border-radius: 100px;
+      font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      cursor: pointer; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text-sec);
+      transition: all .2s ease;
+      user-select: none;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--accent-dim);
+      background: rgba(59,142,255,.08);
+      color: var(--accent);
+    }
+    .filter-btn.all.active { border-color: var(--border-lit); background: var(--bg-hover); color: var(--text-pri); }
+    .filter-btn[data-vibe="dark"].active   { border-color: var(--dark); background: var(--dark-bg); color: var(--dark); }
+    .filter-btn[data-vibe="minimal"].active{ border-color: var(--minimal); background: var(--minimal-bg); color: var(--minimal); }
+    .filter-btn[data-vibe="cozy"].active   { border-color: var(--cozy); background: var(--cozy-bg); color: var(--cozy); }
+    .filter-btn[data-vibe="tech"].active   { border-color: var(--tech); background: var(--tech-bg); color: var(--tech); }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
+    }
+    .card:hover {
+      border-color: var(--border-lit);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+    }
+    .card[data-vibe="dark"]:hover    { box-shadow: 0 12px 40px rgba(155,89,247,.12); border-color: rgba(155,89,247,.35); }
+    .card[data-vibe="minimal"]:hover { box-shadow: 0 12px 40px rgba(48,213,200,.10); border-color: rgba(48,213,200,.3); }
+    .card[data-vibe="cozy"]:hover    { box-shadow: 0 12px 40px rgba(245,166,35,.10); border-color: rgba(245,166,35,.3); }
+    .card[data-vibe="tech"]:hover    { box-shadow: 0 12px 40px rgba(59,142,255,.12); border-color: rgba(59,142,255,.3); }
+
+    .card-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .card-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--text-mute); margin-bottom: 6px;
+    }
+    .card-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem; font-weight: 700; letter-spacing: -.02em;
+      color: var(--text-pri); line-height: 1.1;
+    }
+    .vibe-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .vibe-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .8; }
+    .card[data-vibe="dark"] .vibe-tag    { color: var(--dark); background: var(--dark-bg); border: 1px solid rgba(155,89,247,.25); }
+    .card[data-vibe="minimal"] .vibe-tag { color: var(--minimal); background: var(--minimal-bg); border: 1px solid rgba(48,213,200,.2); }
+    .card[data-vibe="cozy"] .vibe-tag    { color: var(--cozy); background: var(--cozy-bg); border: 1px solid rgba(245,166,35,.25); }
+    .card[data-vibe="tech"] .vibe-tag    { color: var(--tech); background: var(--tech-bg); border: 1px solid rgba(59,142,255,.25); }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+    .card-section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text-mute); margin-bottom: 5px;
+    }
+    .card-algo, .card-handles, .card-vibe-desc {
+      font-size: 13px; color: var(--text-sec); line-height: 1.55;
+      margin-bottom: 12px;
+    }
+    .card-vibe-desc { margin-bottom: 0; }
+
+    .handles {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;
+    }
+    .handle {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px; font-weight: 500;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 6px;
+      color: var(--text-sec);
+      transition: color .2s, border-color .2s;
+    }
+    .handle:hover { color: var(--text-pri); border-color: var(--border-lit); }
+    .handle .platform {
+      font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-mute); margin-right: 2px;
+    }
+
+    /* hidden when filtered out */
+    .card.hidden { display: none; }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex; align-items: center; justify-content: center; gap: 32px;
+      flex-wrap: wrap;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      border-radius: 12px;
+      padding: 20px 32px;
+      margin-bottom: 40px;
+      font-size: 13px;
+    }
+    .stat { text-align: center; }
+    .stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text-pri); display: block; }
+    .stat-label { color: var(--text-mute); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; margin-top: 2px; display: block; }
+
+    .stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      margin-top: 60px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-mute);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    footer span { color: var(--text-sec); }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <header>
+    <div class="eyebrow">✦ <span>Brand Kit</span> · PC Setup &amp; Aesthetic Room Creator</div>
+    <h1>20 Viral-Worthy<br/>Channel Names</h1>
+    <p>Curated name ideas for minimalist / cozy / dark aesthetic desk setup content. Filter by vibe to find your brand identity.</p>
+  </header>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-value">20</span><span class="stat-label">Name Ideas</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="stat-value" style="color:var(--dark)">7</span><span class="stat-label">Dark Aesthetic</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="stat-value" style="color:var(--minimal)">5</span><span class="stat-label">Clean Minimal</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="stat-value" style="color:var(--cozy)">5</span><span class="stat-label">Cozy Warm</span></div>
+    <div class="stat-sep"></div>
+    <div class="stat"><span class="stat-value" style="color:var(--tech)">3</span><span class="stat-label">Tech Premium</span></div>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-bar">
+    <button class="filter-btn all active" onclick="filterCards('all', this)">All 20</button>
+    <button class="filter-btn" data-vibe="dark"    onclick="filterCards('dark', this)">🌑 Dark Aesthetic</button>
+    <button class="filter-btn" data-vibe="minimal" onclick="filterCards('minimal', this)">◻ Clean Minimal</button>
+    <button class="filter-btn" data-vibe="cozy"    onclick="filterCards('cozy', this)">🕯 Cozy Warm</button>
+    <button class="filter-btn" data-vibe="tech"    onclick="filterCards('tech', this)">⚡ Tech Premium</button>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="grid" id="grid">
+
+    <!-- 1 -->
+    <div class="card" data-vibe="dark">
+      <div class="card-header">
+        <div><div class="card-number">#01</div><div class="card-name">DeskVoid</div></div>
+        <span class="vibe-tag">Dark Aesthetic</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">"Void" is a high-search modifier in dark aesthetic communities. Short, punchy, memorable — 8 chars. Instantly signals dark/minimal niche without over-explaining.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>DeskVoid</span>
+        <span class="handle"><span class="platform">IG</span>@deskvoid</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Empty, dark, meditative. Feels like scrolling into a black hole of clean setups at 3am.</div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card" data-vibe="dark">
+      <div class="card-header">
+        <div><div class="card-number">#02</div><div class="card-name">NocturnalDesk</div></div>
+        <span class="vibe-tag">Dark Aesthetic</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">"Nocturnal" pairs naturally with desk/setup content shot at night. Strong SEO pull on "night desk setup" and "dark room aesthetic" searches. Evokes creative night-owl energy.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>NocturnalDesk</span>
+        <span class="handle"><span class="platform">IG</span>@nocturnaldesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Late nights, blue-purple monitor glow, keyboards clicking in the dark. Premium creative energy.</div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card" data-vibe="minimal">
+      <div class="card-header">
+        <div><div class="card-number">#03</div><div class="card-name">AshDesk</div></div>
+        <span class="vibe-tag">Clean Minimal</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Two syllables, easy to brand. "Ash" = grey tones, burnt clean aesthetic, post-industrial minimalism. Shorter names outperform on algorithm recommendation thumbnails.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>AshDesk</span>
+        <span class="handle"><span class="platform">IG</span>@ashdesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Concrete whites, grey mouse pads, monochrome peripherals. Brutalist-meets-minimal aesthetic.</div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card" data-vibe="dark">
+      <div class="card-header">
+        <div><div class="card-number">#04</div><div class="card-name">VoidRoom</div></div>
+        <span class="vibe-tag">Dark Aesthetic</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Room-level content performs better than desk-only — wider content scope. "Void" is trending in dark aesthetic subcultures. Dual niche: setups + room tours = 2× algorithm reach.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>VoidRoom</span>
+        <span class="handle"><span class="platform">IG</span>@voidroom</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Dark rooms, neon accents, curated emptiness. Feels cinematic and intentional.</div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card" data-vibe="cozy">
+      <div class="card-header">
+        <div><div class="card-number">#05</div><div class="card-name">LunaSetup</div></div>
+        <span class="vibe-tag">Cozy Warm</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">"Luna" pulls female audience and lofi-aesthetic fans simultaneously. Crossover with "study with me" YouTube niche (millions of views). Moon = night-time cozy workspace energy.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>LunaSetup</span>
+        <span class="handle"><span class="platform">IG</span>@lunasetup</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Soft moonlight, warm LEDs, plants by the desk, lo-fi music always playing.</div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card" data-vibe="tech">
+      <div class="card-header">
+        <div><div class="card-number">#06</div><div class="card-name">ObsidianDesk</div></div>
+        <span class="vibe-tag">Tech Premium</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Obsidian = volcanic glass, natural luxury. The word is trending (Obsidian app, Obsidian PC builds). Strong dark/premium dual signal. Sounds like a product brand — highly sponsorship-attractive.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>ObsidianDesk</span>
+        <span class="handle"><span class="platform">IG</span>@obsidiandesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Matte black everything, $4,000 keyboards, cable management perfection. Prestige tier.</div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card" data-vibe="cozy">
+      <div class="card-header">
+        <div><div class="card-number">#07</div><div class="card-name">DimLitDesk</div></div>
+        <span class="vibe-tag">Cozy Warm</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Descriptive yet evocative — "dim lit" is a direct search term people type. Works as a hashtag. Bridges cozy + dark: lit enough to feel warm, dim enough to feel moody.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>DimLitDesk</span>
+        <span class="handle"><span class="platform">IG</span>@dimlitdesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Amber candlelight, warm keyboard glow, a mug of tea beside the monitor. Pure hygge.</div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card" data-vibe="minimal">
+      <div class="card-header">
+        <div><div class="card-number">#08</div><div class="card-name">SilentRoom</div></div>
+        <span class="vibe-tag">Clean Minimal</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Minimalism is about silence — this name IS the concept. ASMR and ambient YouTube audiences will crossover. "Silent" suggests curated restraint. No clutter, no noise.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>SilentRoom</span>
+        <span class="handle"><span class="platform">IG</span>@silentroom</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">White walls, floating shelves, one plant, zero distractions. Scandinavian calm.</div>
+    </div>
+
+    <!-- 9 -->
+    <div class="card" data-vibe="tech">
+      <div class="card-header">
+        <div><div class="card-number">#09</div><div class="card-name">CarbonSetup</div></div>
+        <span class="vibe-tag">Tech Premium</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Carbon fibre = premium tech material. Strong association with performance hardware. Short, brand-friendly, sponsors will love it. Works as @carbonsetup handle perfectly.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>CarbonSetup</span>
+        <span class="handle"><span class="platform">IG</span>@carbonsetup</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Dark weave textures, brushed metal peripherals, RGB off by default. Performance-first luxury.</div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card" data-vibe="dark">
+      <div class="card-header">
+        <div><div class="card-number">#10</div><div class="card-name">MidnightDesk</div></div>
+        <span class="vibe-tag">Dark Aesthetic</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Direct keyword match: people search "midnight desk setup" often. Timeless, universal appeal. Strong for thumbnails — midnight blue palettes photograph beautifully and stop-the-scroll.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>MidnightDesk</span>
+        <span class="handle"><span class="platform">IG</span>@midnightdesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Deep midnight blue, cold monitor light, the whole city asleep. Focus mode activated.</div>
+    </div>
+
+    <!-- 11 -->
+    <div class="card" data-vibe="dark">
+      <div class="card-header">
+        <div><div class="card-number">#11</div><div class="card-name">CozyVoid</div></div>
+        <span class="vibe-tag">Dark Aesthetic</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Intentional contradiction — "cozy" + "void" creates tension that makes people click. Unique positioning: occupies BOTH the dark aesthetic and cozy niches simultaneously. Highly memeable.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>CozyVoid</span>
+        <span class="handle"><span class="platform">IG</span>@cozyvoid</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Black room with a single warm lamp. Dark aesthetic that somehow feels like a hug.</div>
+    </div>
+
+    <!-- 12 -->
+    <div class="card" data-vibe="minimal">
+      <div class="card-header">
+        <div><div class="card-number">#12</div><div class="card-name">SlateRoom</div></div>
+        <span class="vibe-tag">Clean Minimal</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Slate = the colour palette AND the concept of a blank canvas. Interior design audience crossover. Sounds like a studio/agency — professional credibility from day one.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>SlateRoom</span>
+        <span class="handle"><span class="platform">IG</span>@slateroom</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Charcoal slate, ceramic desk accessories, editorial-grade room photography.</div>
+    </div>
+
+    <!-- 13 -->
+    <div class="card" data-vibe="cozy">
+      <div class="card-header">
+        <div><div class="card-number">#13</div><div class="card-name">DuskSetup</div></div>
+        <span class="vibe-tag">Cozy Warm</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Dusk = the magic hour. Warm orange-to-deep-blue gradient — visually loaded word. Signals transition from warm to dark, covering both aesthetic moods. Very Instagrammable palette trigger.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>DuskSetup</span>
+        <span class="handle"><span class="platform">IG</span>@dusksetup</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Golden hour bleeding into purple twilight, warm desk lamp, window with a view.</div>
+    </div>
+
+    <!-- 14 -->
+    <div class="card" data-vibe="minimal">
+      <div class="card-header">
+        <div><div class="card-number">#14</div><div class="card-name">NullDesk</div></div>
+        <span class="vibe-tag">Clean Minimal</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Programmer/dev audience magnet — "null" is technical slang for nothing/empty. Minimalism philosophy encoded in one word. 8 chars, easy to type. Dev + designer community crossover.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>NullDesk</span>
+        <span class="handle"><span class="platform">IG</span>@nulldesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Code editor in dark mode, mechanical keyboard, nothing on the desk except what's essential.</div>
+    </div>
+
+    <!-- 15 -->
+    <div class="card" data-vibe="cozy">
+      <div class="card-header">
+        <div><div class="card-number">#15</div><div class="card-name">AmberGlow</div></div>
+        <span class="vibe-tag">Cozy Warm</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Highly visual name — you can literally see amber glow before clicking. Strong crossover with ASMR, lo-fi, candle aesthetic audiences. Desk lamp content lives here. Colour names are click magnets.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>AmberGlow</span>
+        <span class="handle"><span class="platform">IG</span>@amberglow</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Warm filament bulbs, brass accents, wooden desk, the kind of setup that feels like autumn forever.</div>
+    </div>
+
+    <!-- 16 -->
+    <div class="card" data-vibe="dark">
+      <div class="card-header">
+        <div><div class="card-number">#16</div><div class="card-name">MonolithDesk</div></div>
+        <span class="vibe-tag">Dark Aesthetic</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Kubrick's 2001 reference = instant cultural credibility with tech audiences. A monolith is dark, towering, perfect — exactly the feeling of a premium dark build. Zero competitor overlap expected.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>MonolithDesk</span>
+        <span class="handle"><span class="platform">IG</span>@monolithdesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">All-black everything, ultra-wide monitor, no RGB, serious creative energy. Cinematic grade.</div>
+    </div>
+
+    <!-- 17 -->
+    <div class="card" data-vibe="minimal">
+      <div class="card-header">
+        <div><div class="card-number">#17</div><div class="card-name">FrostSetup</div></div>
+        <span class="vibe-tag">Clean Minimal</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Cool tones = premium minimal (Apple, IKEA aesthetic). Frost = white/translucent/clean — directly communicates the look. Short, brandable, gender-neutral. Strong thumbnail palette.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>FrostSetup</span>
+        <span class="handle"><span class="platform">IG</span>@frostsetup</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">White desk, white walls, white peripherals, cold daylight. The Apple Store of home setups.</div>
+    </div>
+
+    <!-- 18 -->
+    <div class="card" data-vibe="cozy">
+      <div class="card-header">
+        <div><div class="card-number">#18</div><div class="card-name">EmberRoom</div></div>
+        <span class="vibe-tag">Cozy Warm</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Ember = dying fire, last warmth, intimate glow. More atmospheric than "DimLit" — poetic and evocative. Room-level content scope. Strong for Reels and Shorts where vibe matters over description.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>EmberRoom</span>
+        <span class="handle"><span class="platform">IG</span>@emberroom</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Deep reds and oranges, a dark setup that radiates warmth like a fireplace at midnight.</div>
+    </div>
+
+    <!-- 19 -->
+    <div class="card" data-vibe="tech">
+      <div class="card-header">
+        <div><div class="card-number">#19</div><div class="card-name">ZenithDesk</div></div>
+        <span class="vibe-tag">Tech Premium</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Zenith = peak, highest point. Aspirational positioning — everyone wants the "best" setup. Watch brand association (Zenith watches = luxury) adds premium signal. Setup improvement content algorithm bait.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>ZenithDesk</span>
+        <span class="handle"><span class="platform">IG</span>@zenithdesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">The setup that wins every subreddit. High-end peripherals, perfect cable management, editorial lighting.</div>
+    </div>
+
+    <!-- 20 -->
+    <div class="card" data-vibe="dark">
+      <div class="card-header">
+        <div><div class="card-number">#20</div><div class="card-name">GrainDesk</div></div>
+        <span class="vibe-tag">Dark Aesthetic</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Why it works</div>
+      <div class="card-algo">Film grain is the defining aesthetic of high-end dark photography and Reels. Signals intentional, artsy content over polished vlogging. Unique — nobody else is "Grain" in this niche yet. Photographers and videographers will instantly understand it.</div>
+      <div class="card-section-label">Availability Check</div>
+      <div class="handles">
+        <span class="handle"><span class="platform">YT</span>GrainDesk</span>
+        <span class="handle"><span class="platform">IG</span>@graindesk</span>
+      </div>
+      <hr class="divider">
+      <div class="card-section-label">Vibe</div>
+      <div class="card-vibe-desc">Cinematic film grain, moody low-light photography, the most aesthetic desk on the feed.</div>
+    </div>
+
+  </div><!-- /grid -->
+
+  <footer>
+    <p>Generated 2026 · <span>PC Setup &amp; Aesthetic Room Creator Brand Kit</span> · All names are suggestions — verify current availability before use</p>
+  </footer>
+
+</div><!-- /wrapper -->
+
+<script>
+  function filterCards(vibe, btn) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/hide cards
+    document.querySelectorAll('.card').forEach(card => {
+      if (vibe === 'all' || card.dataset.vibe === vibe) {
+        card.classList.remove('hidden');
+        // Stagger fade in
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(8px)';
+        requestAnimationFrame(() => {
+          card.style.transition = 'opacity .3s ease, transform .3s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // Copy handle on click
+  document.querySelectorAll('.handle').forEach(h => {
+    h.style.cursor = 'pointer';
+    h.title = 'Click to copy';
+    h.addEventListener('click', () => {
+      const text = h.querySelector('.platform').nextSibling.textContent.trim();
+      navigator.clipboard.writeText(text).catch(() => {});
+      const orig = h.innerHTML;
+      h.innerHTML = '<span style="color:#30d5c8">✓ Copied</span>';
+      setTimeout(() => { h.innerHTML = orig; }, 1400);
+    });
+  });
+</script>
+</body>
+</html>
