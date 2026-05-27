@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LinkedIn Profile Optimization – Chandreshwarr K</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:   #0a66c2;
+      --navy:   #0f172a;
+      --teal:   #0ea5e9;
+      --green:  #16a34a;
+      --light:  #f0f9ff;
+      --border: #e2e8f0;
+      --muted:  #64748b;
+      --text:   #1e293b;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: var(--text);
+      line-height: 1.6;
+      padding: 32px 16px 60px;
+    }
+    .wrap { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+    /* top banner */
+    .banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      border-radius: 14px;
+      padding: 32px 36px;
+      color: #fff;
+    }
+    .banner h1 { font-size: 1.7rem; font-weight: 800; color: #f8fafc; }
+    .banner p  { font-size: 0.88rem; color: #94a3b8; margin-top: 6px; max-width: 600px; line-height: 1.6; }
+    .banner .badge {
+      display: inline-block;
+      background: rgba(14,165,233,.2);
+      border: 1px solid rgba(14,165,233,.4);
+      color: #7dd3fc;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-top: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    /* section card */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: #fafafa;
+    }
+    .card-head-left { display: flex; align-items: center; gap: 12px; }
+    .section-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-head h2 { font-size: 0.95rem; font-weight: 700; color: var(--navy); }
+    .impact-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .impact-high   { background: #dcfce7; color: #166534; }
+    .impact-medium { background: #fef9c3; color: #713f12; }
+    .impact-tip    { background: #e0f2fe; color: #075985; }
+
+    .card-body { padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+    /* instruction box */
+    .instruction {
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #78350f;
+      line-height: 1.5;
+    }
+    .instruction strong { color: #92400e; }
+
+    /* copy box */
+    .copy-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .copy-box {
+      background: var(--light);
+      border: 1.5px solid #bae6fd;
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-size: 0.84rem;
+      color: var(--text);
+      white-space: pre-wrap;
+      line-height: 1.75;
+      position: relative;
+      cursor: text;
+    }
+    .copy-box .copy-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .copy-box .copy-btn:hover { background: #0550a0; }
+    .copy-box .copy-btn.copied { background: var(--green); }
+
+    /* skills grid */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-chip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .skill-chip.top { background: #dbeafe; border-color: #93c5fd; }
+
+    /* tips list */
+    .tips-list { display: flex; flex-direction: column; gap: 10px; }
+    .tip-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: #334155;
+      line-height: 1.5;
+    }
+    .tip-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .tip-item strong { color: var(--navy); display: block; margin-bottom: 2px; font-size: 0.83rem; }
+
+    /* divider */
+    .divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+    /* char counter */
+    .char-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: right;
+      margin-top: -8px;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .copy-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>LinkedIn Profile Optimization</h1>
+    <p>Ready-to-paste content for every section of your LinkedIn profile — crafted to maximize recruiter discovery, pass keyword search algorithms, and make hiring managers reach out to <strong style="color:#7dd3fc">you</strong>.</p>
+    <div class="badge">Game QA Engineer · 4+ Years · AAA · LiveOps · Xbox Compliance</div>
+  </div>
+
+  <!-- 1. HEADLINE -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="section-num">1</div>
+        <h2>Headline <span style="color:#64748b;font-weight:400;font-size:0.82rem;">— The single most important field</span></h2>
+      </div>
+      <span class="impact-tag impact-high">Highest Impact</span>
+    </div>
+    <div class="card-body">
+      <div class="instruction">
+        <strong>Where to edit:</strong> Click the ✏️ pencil on your profile photo area → Edit intro → Headline field.<br>
+        LinkedIn shows your headline in every search result, connection request, and notification. Most people waste this on just their job title. Use keywords recruiters actually search for.
+      </div>
+      <div>
+        <div class="copy-label">Paste this headline (220 chars max)</div>
+        <div class="copy-box" id="cb1">Game QA Engineer | LiveOps &amp; AAA Titles | PC · PS4/PS5 · Xbox One/Series | Regression · Compliance · Exploratory Testing | 4+ Years in Gaming QA<button class="copy-btn" onclick="copyText('cb1', this)">Copy</button></div>
+        <div class="char-note">~153 characters</div>
+      </div>
+      <div class="instruction">
+        <strong>Why this works:</strong> Contains 8+ searchable keywords recruiters type — "Game QA", "LiveOps", "AAA", "Xbox", "PlayStation", "Regression Testing", "Compliance Testing", "Exploratory Testing". LinkedIn's algorithm ranks you higher when your headline matches search queries.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ABOUT / SUMMARY -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="section-num">2</div>
+        <h2>About Section <span style="color:#64748b;font-weight:400;font-size:0.82rem;">— Your personal pitch</span></h2>
+      </div>
+      <span class="impact-tag impact-high">Highest Impact</span>
+    </div>
+    <div class="card-body">
+      <div class="instruction">
+        <strong>Where to edit:</strong> Click "Add profile section" or the pencil on the About section → paste the text below.<br>
+        The first 2–3 lines show before "see more" — make them punchy. Use line breaks for readability. End with a clear call to action.
+      </div>
+      <div>
+        <div class="copy-label">Paste this About section</div>
+        <div class="copy-box" id="cb2">🎮 Game QA Engineer with 4+ years of experience shipping quality across AAA titles, live service games, and cross-platform products.
+
+I've tested on PS4, PS5, Xbox One, Xbox Series, and PC — from compliance submissions to LiveOps event validation and hotfix releases. Whether it's smoke testing a patch at midnight or coordinating Xbox certification for a AAA title, I bring thoroughness, speed, and calm under pressure.
+
+🔍 What I do well:
+• Functional, regression, exploratory &amp; compliance testing
+• LiveOps QA — events, economy, rewards, monetization, seasonal content
+• Defect lifecycle management using JIRA, Bonsai, Hansoft
+• Xbox compliance (XR) — multiple successful AAA title submissions
+• Cross-platform validation: PS4/PS5, Xbox One/Series, PC
+• Agile/Scrum workflows — sprint planning, standups, retrospectives
+• Test case design, checklists, and release readiness documentation
+
+🏢 Experience:
+→ Test Engineer @ Deca Games (Remote) — Jun 2025–Present
+→ Test Engineer @ SIDE/PTW, Bengaluru — Jan 2023–May 2025
+→ Trainee Test Engineer @ SIDE/PTW — Apr 2022–Dec 2022
+
+📜 Certification:
+Python Automation Testing Course (7 Months) — GUVI · HCL &amp; IITM Incubated (May 2026)
+Expanding into automation: Python scripting, Selenium basics, PyTest framework.
+
+💬 I'm open to Game QA, QA Lead, and Senior QA roles — remote or hybrid. If you're building a quality-obsessed team, let's talk.
+
+📩 chandreshwarr.k@gmail.com<button class="copy-btn" onclick="copyText('cb2', this)">Copy</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. EXPERIENCE -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="section-num">3</div>
+        <h2>Experience Descriptions</h2>
+      </div>
+      <span class="impact-tag impact-high">High Impact</span>
+    </div>
+    <div class="card-body">
+      <div class="instruction">
+        <strong>Where to edit:</strong> Click the pencil ✏️ next to each job → edit the Description field → paste below.
+      </div>
+
+      <!-- Deca -->
+      <div>
+        <div class="copy-label">Deca Games — Test Engineer (Jun 2025–Present)</div>
+        <div class="copy-box" id="cb3">🎯 End-to-end QA for live game products in a fully remote, product-based studio.
+
+• Validate features, content updates, events, builds, and hotfix releases before production deployment
+• Execute regression, smoke, sanity, and exploratory testing cycles for high-frequency live releases
+• Log, prioritize, and triage defects in JIRA — collaborating directly with developers, producers, and designers for fast resolution
+• Verify backend configurations: in-game economy, rewards, store items, monetization features, and seasonal events
+• Support LiveOps QA for time-limited events and production rollouts
+• Maintain test cases, release checklists, and readiness documentation
+• Participate in Agile ceremonies: sprint planning, daily standups, retrospectives
+
+🛠 Tools: JIRA · Agile/Scrum · Cross-platform testing<button class="copy-btn" onclick="copyText('cb3', this)">Copy</button></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SIDE Test Engineer -->
+      <div>
+        <div class="copy-label">SIDE (formerly PTW) — Test Engineer (Jan 2023–May 2025)</div>
+        <div class="copy-box" id="cb4">🎮 QA for multiple AAA game titles across PC, Xbox, and PlayStation platforms in a service-based studio.
+
+• Designed and executed test plans and test cases for AAA titles based on project requirements and design documents
+• Conducted functional, performance, and exploratory testing — surfacing game-breaking bugs beyond predefined test cases
+• Led Xbox compliance (XR) testing — contributed to multiple successful AAA title certification submissions
+• Served as Point of Contact (POC) for select projects: managed client communications, coordinated priorities, and delivered status updates
+• Enhanced bug tracking systems and improved test suite coverage aligned with evolving project scope
+• Conducted internal knowledge-sharing sessions on test case design, bug reporting best practices, and test execution standards
+
+🛠 Tools: JIRA · Bonsai · Hansoft · Neighborhood (PS4) · Target Manager (PS5) · GDK/XDK (Xbox)<button class="copy-btn" onclick="copyText('cb4', this)">Copy</button></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SIDE Trainee -->
+      <div>
+        <div class="copy-label">SIDE (formerly PTW) — Trainee Test Engineer (Apr 2022–Dec 2022)</div>
+        <div class="copy-box" id="cb5">Entry-level QA role — built hands-on foundations in game testing across platforms and devices.
+
+• Performed regression, functional, and compatibility testing for game builds and patches
+• Documented defects with clear reproduction steps, screenshots, and logs to enable rapid triage
+• Validated game compatibility across different devices, screen resolutions, and operating systems
+• Participated in full game playthroughs to assess gameplay consistency, UI/UX flow, and interface behavior
+
+🛠 Tools: JIRA · PS4/PS5 · Xbox · PC<button class="copy-btn" onclick="copyText('cb5', this)">Copy</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. SKILLS -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="section-num">4</div>
+        <h2>Skills Section <span style="color:#64748b;font-weight:400;font-size:0.82rem;">— Add all of these</span></h2>
+      </div>
+      <span class="impact-tag impact-medium">Medium Impact</span>
+    </div>
+    <div class="card-body">
+      <div class="instruction">
+        <strong>Where to edit:</strong> Scroll to Skills section → "Add a new skill" → type each one below and add it. Pin your top 3 most important skills so they appear first (recruiters see only the top 3 by default).
+      </div>
+      <div>
+        <div class="copy-label">Pin these 3 first (most visible)</div>
+        <div class="skills-grid">
+          <span class="skill-chip top">Game Quality Assurance</span>
+          <span class="skill-chip top">LiveOps Testing</span>
+          <span class="skill-chip top">Xbox Compliance Testing</span>
+        </div>
+      </div>
+      <div>
+        <div class="copy-label">Add all of these skills</div>
+        <div class="skills-grid">
+          <span class="skill-chip">Regression Testing</span>
+          <span class="skill-chip">Functional Testing</span>
+          <span class="skill-chip">Exploratory Testing</span>
+          <span class="skill-chip">Compatibility Testing</span>
+          <span class="skill-chip">Smoke Testing</span>
+          <span class="skill-chip">Sanity Testing</span>
+          <span class="skill-chip">Bug Tracking</span>
+          <span class="skill-chip">Defect Management</span>
+          <span class="skill-chip">JIRA</span>
+          <span class="skill-chip">Test Case Design</span>
+          <span class="skill-chip">Test Planning</span>
+          <span class="skill-chip">Cross-Platform Testing</span>
+          <span class="skill-chip">PlayStation Testing</span>
+          <span class="skill-chip">Agile Methodology</span>
+          <span class="skill-chip">Scrum</span>
+          <span class="skill-chip">Release Validation</span>
+          <span class="skill-chip">UI/UX Testing</span>
+          <span class="skill-chip">Python (Basics)</span>
+          <span class="skill-chip">Selenium (Basics)</span>
+          <span class="skill-chip">Test Automation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. CERTIFICATIONS -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="section-num">5</div>
+        <h2>Licenses &amp; Certifications</h2>
+      </div>
+      <span class="impact-tag impact-medium">Medium Impact</span>
+    </div>
+    <div class="card-body">
+      <div class="instruction">
+        <strong>Where to add:</strong> Click "Add profile section" → Recommended → "Add licenses &amp; certifications" → fill in the fields below.
+      </div>
+      <div class="tips-list">
+        <div class="tip-item">
+          <div>
+            <strong>Certification name:</strong> Python Automation Testing Course<br>
+            <strong>Issuing organization:</strong> GUVI Geek Network<br>
+            <strong>Issue date:</strong> May 2026<br>
+            <strong>Credential ID:</strong> (add if available on your certificate)<br>
+            <strong>Description:</strong> 7-month course covering Python scripting fundamentals, Selenium WebDriver basics, and PyTest framework for automated test execution. Issued by GUVI — an IITM incubated company and Google for Education partner.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. QUICK WINS -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="section-num">6</div>
+        <h2>Quick Wins — Do These Today</h2>
+      </div>
+      <span class="impact-tag impact-tip">Profile Boosts</span>
+    </div>
+    <div class="card-body">
+      <div class="tips-list">
+
+        <div class="tip-item">
+          <div class="tip-icon">📸</div>
+          <div>
+            <strong>Professional Profile Photo</strong>
+            Use a clear, well-lit headshot with a neutral background. Profiles with photos get <strong>21x more views</strong>. No selfies or group photos — just you, smiling, professional.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">🖼️</div>
+          <div>
+            <strong>Banner / Cover Image</strong>
+            Add a custom banner behind your photo. Use a gaming/tech themed image — controller, game screen, dark tech aesthetic. Free tool: <strong>Canva.com</strong> → search "LinkedIn Banner" → use a free template. Size: 1584 × 396px.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">🔗</div>
+          <div>
+            <strong>Custom Profile URL</strong>
+            Go to Edit public profile &amp; URL (top right) → Edit your custom URL → set it to <strong>linkedin.com/in/chandreshwarr-k</strong> (remove the random numbers). Cleaner for resumes and emails.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">✅</div>
+          <div>
+            <strong>Open to Work</strong>
+            Click "Open to" below your name → "Finding a new job" → select relevant job titles: <em>Game QA Engineer, QA Tester, Senior QA Engineer, QA Lead, Test Engineer</em> → set to "Recruiters only" so your current employer can't see it.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">📣</div>
+          <div>
+            <strong>Creator Mode / Featured Section</strong>
+            Turn on Creator Mode (in settings) to get a "Follow" button. Add a Featured post — write a short post about your experience testing a live game event or Xbox compliance process. Visibility from posts drives recruiter inbound.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">⭐</div>
+          <div>
+            <strong>Request Recommendations</strong>
+            Ask 2–3 colleagues or managers from SIDE/PTW or Deca Games to write you a LinkedIn recommendation. Even one strong recommendation dramatically increases recruiter trust. Send them a short template to make it easy for them.
+          </div>
+        </div>
+
+        <div class="tip-item">
+          <div class="tip-icon">🔔</div>
+          <div>
+            <strong>Engage Weekly</strong>
+            Like or comment on 3–5 posts per week from game studios, QA leads, or gaming industry accounts. LinkedIn's algorithm shows your profile to more people when you're active — even just reacting to posts counts.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function copyText(id, btn) {
+    const el = document.getElementById(id);
+    const text = el.innerText.replace('Copy', '').replace('Copied!', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
