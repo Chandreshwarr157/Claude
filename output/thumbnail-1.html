@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BGMI Thumbnail 1 — Crimson Inferno (Raven X-Suit)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Teko:wght@500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     BGMI THUMBNAIL — STYLE 1 : "CRIMSON INFERNO"
+     Character: RAVEN X-SUIT   |   1280 x 720 (YouTube HD)
+     -> Drop your cutout PNG at  assets/raven.png  to replace
+        the placeholder. Everything else is pure HTML/CSS.
+     ============================================================ */
+
+  :root{
+    --w: 1280px;
+    --h: 720px;
+    --crimson: #ff1f2d;
+    --crimson-deep: #8a0010;
+    --ember: #ff7a18;
+    --ink: #07020a;
+    /* Swap this to your real cutout when ready */
+    --char-img: url('assets/raven.png');
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:#101014; display:flex; align-items:center; justify-content:center;
+             min-height:100vh; font-family:'Oswald',system-ui,sans-serif; }
+
+  /* === STAGE === */
+  .thumb{
+    position:relative; width:var(--w); height:var(--h);
+    overflow:hidden; background:#0a0207; isolation:isolate;
+    box-shadow:0 40px 120px rgba(0,0,0,.7);
+  }
+
+  /* === LAYERED BACKGROUND === */
+  .bg-base{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(120% 90% at 72% 38%, #ff3b2e 0%, #c00819 26%, #5e0210 52%, #1c020a 78%, #07020a 100%);
+  }
+  .bg-vignette{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(70% 80% at 50% 50%, transparent 40%, rgba(0,0,0,.55) 100%),
+      linear-gradient(90deg, rgba(0,0,0,.65) 0%, transparent 30%, transparent 70%, rgba(0,0,0,.55) 100%);
+  }
+  /* faint hex/grid battle texture */
+  .bg-grid{
+    position:absolute; inset:-2px; opacity:.10; mix-blend-mode:screen;
+    background-image:
+      linear-gradient(transparent 23px, rgba(255,255,255,.5) 24px),
+      linear-gradient(90deg, transparent 23px, rgba(255,255,255,.5) 24px);
+    background-size:24px 24px;
+    -webkit-mask-image:radial-gradient(60% 70% at 60% 45%, #000 0%, transparent 75%);
+            mask-image:radial-gradient(60% 70% at 60% 45%, #000 0%, transparent 75%);
+  }
+  /* smoke streaks */
+  .smoke{ position:absolute; inset:0; opacity:.5; mix-blend-mode:screen; }
+  .smoke span{
+    position:absolute; border-radius:50%;
+    filter:blur(40px); opacity:.55;
+  }
+  .smoke .s1{ width:520px; height:520px; left:-80px; top:-120px;
+    background:radial-gradient(circle, rgba(255,80,40,.55), transparent 65%); }
+  .smoke .s2{ width:640px; height:640px; right:-160px; bottom:-220px;
+    background:radial-gradient(circle, rgba(255,40,40,.45), transparent 65%); }
+  .smoke .s3{ width:380px; height:380px; left:42%; top:55%;
+    background:radial-gradient(circle, rgba(0,0,0,.6), transparent 70%); }
+
+  /* diagonal speed slashes */
+  .slashes{ position:absolute; inset:0; opacity:.35; mix-blend-mode:screen; }
+  .slashes i{
+    position:absolute; height:3px; width:60%;
+    background:linear-gradient(90deg, transparent, var(--crimson), transparent);
+    transform:rotate(-22deg); filter:blur(.5px);
+  }
+  .slashes i:nth-child(1){ top:18%; left:-10%; opacity:.7; }
+  .slashes i:nth-child(2){ top:34%; left:20%; height:2px; opacity:.5; }
+  .slashes i:nth-child(3){ top:68%; left:-5%; opacity:.45; }
+  .slashes i:nth-child(4){ top:82%; left:30%; height:2px; opacity:.6; }
+
+  /* floating embers */
+  .embers span{
+    position:absolute; bottom:-10px; width:5px; height:5px; border-radius:50%;
+    background:radial-gradient(circle, #ffd089, var(--ember) 60%, transparent);
+    box-shadow:0 0 8px var(--ember);
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{ transform:translateY(0) translateX(0) scale(1); opacity:0; }
+    12%{ opacity:1; }
+    100%{ transform:translateY(-740px) translateX(40px) scale(.3); opacity:0; }
+  }
+
+  /* === GHOST / FADED DUPLICATE BEHIND (like Chou ref) === */
+  .char-ghost{
+    position:absolute; right:2%; top:6%; width:46%; height:92%;
+    background-image:var(--char-img);
+    background-size:contain; background-repeat:no-repeat; background-position:right center;
+    filter:grayscale(.2) brightness(.4) sepia(1) hue-rotate(-30deg) saturate(3);
+    opacity:.22; transform:scaleX(-1) translateX(-40px); z-index:2;
+  }
+
+  /* === GIANT HOLLOW DISPLAY WORD (behind char) === */
+  .display-word{
+    position:absolute; z-index:3; left:50%; bottom:6%;
+    transform:translateX(-50%);
+    font-family:'Anton',sans-serif; font-weight:400;
+    font-size:300px; line-height:.78; letter-spacing:8px;
+    color:transparent; -webkit-text-stroke:3px rgba(255,255,255,.85);
+    text-shadow:0 0 40px rgba(255,30,40,.5);
+    white-space:nowrap; user-select:none; text-transform:uppercase;
+  }
+  .display-word .fill{
+    -webkit-text-stroke:0; color:rgba(255,255,255,.06);
+  }
+  /* subtle glitch echo */
+  .display-word::after{
+    content:'RAVEN'; position:absolute; inset:0;
+    -webkit-text-stroke:3px rgba(255,30,40,.45); color:transparent;
+    transform:translate(6px,4px); z-index:-1; filter:blur(.4px);
+  }
+
+  /* === CHARACTER (MAIN) === */
+  .character{
+    position:absolute; z-index:5; right:-1%; bottom:0; width:60%; height:100%;
+    background-image:var(--char-img);
+    background-size:contain; background-repeat:no-repeat; background-position:bottom right;
+    filter:drop-shadow(-18px 10px 24px rgba(0,0,0,.75))
+           drop-shadow(0 0 40px rgba(255,30,40,.35));
+  }
+  /* rim light kiss */
+  .char-rim{
+    position:absolute; z-index:4; right:6%; top:8%; width:42%; height:80%;
+    background:radial-gradient(50% 60% at 70% 40%, rgba(255,120,60,.55), transparent 70%);
+    filter:blur(30px); mix-blend-mode:screen;
+  }
+
+  /* placeholder shown until you add the real PNG */
+  .char-placeholder{
+    position:absolute; z-index:5; right:4%; bottom:6%;
+    width:48%; height:86%; border:2px dashed rgba(255,255,255,.35);
+    border-radius:18px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:14px;
+    background:linear-gradient(180deg, rgba(255,40,40,.10), rgba(0,0,0,.35));
+    color:rgba(255,255,255,.78); text-align:center; padding:30px;
+    box-shadow:inset 0 0 60px rgba(255,30,40,.25);
+  }
+  .char-placeholder svg{ width:120px; height:120px; opacity:.8; filter:drop-shadow(0 0 12px var(--crimson)); }
+  .char-placeholder b{ font-family:'Teko'; font-size:34px; letter-spacing:2px; line-height:1; }
+  .char-placeholder small{ font-size:15px; letter-spacing:1px; opacity:.8; }
+  /* hide placeholder if the real image loads */
+  .character:not([data-empty]) + .char-placeholder{ display:none; }
+
+  /* === TOP-LEFT : BGMI BADGE (corner) === */
+  .bgmi-tag{
+    position:absolute; z-index:8; top:26px; left:30px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .bgmi-tag .mark{
+    width:46px; height:46px; border-radius:10px;
+    background:linear-gradient(145deg,#ff2a2a,#7c0010);
+    display:grid; place-items:center; transform:rotate(45deg);
+    box-shadow:0 0 18px rgba(255,40,40,.65), inset 0 0 12px rgba(0,0,0,.4);
+    border:1px solid rgba(255,255,255,.4);
+  }
+  .bgmi-tag .mark span{ transform:rotate(-45deg); font-family:'Anton'; font-size:26px; color:#fff; }
+  .bgmi-tag .txt{ line-height:1; }
+  .bgmi-tag .txt b{ display:block; font-family:'Teko'; font-weight:600; font-size:26px;
+    letter-spacing:3px; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.6); }
+  .bgmi-tag .txt small{ display:block; font-family:'Oswald'; font-weight:600;
+    font-size:12px; letter-spacing:5px; color:var(--crimson); }
+
+  /* === TOP-RIGHT : LIVE BADGE === */
+  .live{
+    position:absolute; z-index:9; top:26px; right:30px;
+    display:flex; align-items:center; gap:10px;
+    background:linear-gradient(145deg,#ff0026,#a30016);
+    padding:9px 18px 9px 14px; border-radius:8px;
+    box-shadow:0 6px 20px rgba(255,0,40,.5), inset 0 0 0 1px rgba(255,255,255,.25);
+  }
+  .live .dot{ width:13px; height:13px; border-radius:50%; background:#fff;
+    box-shadow:0 0 0 0 rgba(255,255,255,.8); animation:pulse 1.4s infinite; }
+  .live b{ font-family:'Teko'; font-weight:700; font-size:26px; letter-spacing:4px; color:#fff; }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(255,255,255,.7);} 70%{ box-shadow:0 0 0 12px rgba(255,255,255,0);} 100%{ box-shadow:0 0 0 0 rgba(255,255,255,0);}
+  }
+
+  /* === CHARACTER NAME TAG (like CHOU S.T.U.N) === */
+  .name-tag{
+    position:absolute; z-index:8; right:34px; top:40%;
+    transform:translateY(-50%); text-align:right;
+  }
+  .name-tag .sub{ font-family:'Oswald'; font-weight:700; font-size:18px;
+    letter-spacing:8px; color:#fff; opacity:.9; }
+  .name-tag .main{ font-family:'Anton'; font-size:58px; letter-spacing:2px;
+    color:#fff; line-height:.9;
+    text-shadow:0 4px 0 var(--crimson-deep), 0 0 30px rgba(255,30,40,.6); }
+  .name-tag .main em{ font-style:normal; color:var(--crimson); }
+
+  /* === BOTTOM STRIP : creator + tagline === */
+  .footer{
+    position:absolute; z-index:8; left:30px; bottom:24px; max-width:54%;
+  }
+  .footer .handle{
+    font-family:'Teko'; font-weight:700; font-size:40px; line-height:1;
+    color:#fff; letter-spacing:2px;
+    text-shadow:0 2px 10px rgba(0,0,0,.7);
+  }
+  .footer .handle b{ color:var(--crimson); }
+  .footer .tagline{
+    margin-top:4px; font-family:'Oswald'; font-weight:600; font-size:14px;
+    letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,.78);
+  }
+
+  /* top + bottom cinematic bars */
+  .bar{ position:absolute; left:0; right:0; height:8px; z-index:7;
+    background:linear-gradient(90deg, transparent, var(--crimson), transparent); opacity:.7; }
+  .bar.top{ top:0; } .bar.bottom{ bottom:0; }
+
+  /* small export hint (screen only, never in screenshot crop area) */
+  .hint{ position:fixed; bottom:10px; left:50%; transform:translateX(-50%);
+    color:#9aa; font:13px/1.4 monospace; text-align:center; opacity:.7; }
+</style>
+</head>
+<body>
+
+  <div class="thumb" id="thumb">
+    <div class="bg-base"></div>
+    <div class="bg-grid"></div>
+    <div class="smoke"><span class="s1"></span><span class="s2"></span><span class="s3"></span></div>
+    <div class="slashes"><i></i><i></i><i></i><i></i></div>
+    <div class="embers" id="embers"></div>
+
+    <div class="bar top"></div>
+    <div class="bar bottom"></div>
+
+    <!-- faded duplicate behind -->
+    <div class="char-ghost"></div>
+
+    <!-- giant hollow word -->
+    <div class="display-word"><span class="fill">RAVEN</span>RAVEN</div>
+
+    <div class="char-rim"></div>
+
+    <!-- MAIN CHARACTER (auto-replaced by assets/raven.png) -->
+    <div class="character" id="char" data-empty></div>
+    <div class="char-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M12 2l3 4-3 2-3-2 3-4z"/><path d="M9 8l-3 6 3 8M15 8l3 6-3 8"/>
+        <path d="M9 8h6l1 7H8l1-7z"/><circle cx="12" cy="5" r="0.6" fill="currentColor"/>
+      </svg>
+      <b>DROP RAVEN X-SUIT PNG HERE</b>
+      <small>save your cutout as &nbsp;<code>assets/raven.png</code></small>
+    </div>
+
+    <!-- corner BGMI tag -->
+    <div class="bgmi-tag">
+      <div class="mark"><span>B</span></div>
+      <div class="txt"><b>BATTLEGROUNDS</b><small>MOBILE&nbsp;INDIA</small></div>
+    </div>
+
+    <!-- LIVE -->
+    <div class="live"><span class="dot"></span><b>LIVE</b></div>
+
+    <!-- character name -->
+    <div class="name-tag">
+      <div class="sub">X&nbsp;-&nbsp;SUIT</div>
+      <div class="main">RAVEN <em>·</em></div>
+    </div>
+
+    <!-- footer creator -->
+    <div class="footer">
+      <div class="handle">YOUR <b>NAME</b> HERE</div>
+      <div class="tagline">Conqueror Push • Custom Rooms • Rush Gameplay</div>
+    </div>
+  </div>
+
+  <div class="hint">STYLE 1 — Crimson Inferno • 1280×720 • set character via CSS var <code>--char-img</code> or drop <code>assets/raven.png</code></div>
+
+<script>
+  /* spawn embers */
+  const e = document.getElementById('embers');
+  for(let i=0;i<26;i++){
+    const s=document.createElement('span');
+    s.style.left=(Math.random()*100)+'%';
+    s.style.animationDuration=(4+Math.random()*5)+'s';
+    s.style.animationDelay=(-Math.random()*6)+'s';
+    s.style.transform='scale('+(0.5+Math.random()*1.4)+')';
+    e.appendChild(s);
+  }
+  /* detect whether the character PNG actually exists; if so, drop the placeholder */
+  const probe=new Image();
+  const url=getComputedStyle(document.documentElement).getPropertyValue('--char-img').trim().replace(/^url\(['"]?/,'').replace(/['"]?\)$/,'');
+  probe.onload=()=>document.getElementById('char').removeAttribute('data-empty');
+  probe.onerror=()=>{};
+  if(url) probe.src=url;
+</script>
+</body>
+</html>

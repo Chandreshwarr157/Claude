@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BGMI YouTube Thumbnails — Raven X-Suit (2 Styles)</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Teko:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{ --char-img:url('assets/raven.png'); }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:'Oswald',system-ui,sans-serif; background:#0c0d14; color:#e7ecf5; padding:40px 20px 80px; }
+  .wrap{ max-width:1340px; margin:0 auto; }
+  h1{ font-family:'Anton'; font-size:42px; letter-spacing:1px; }
+  h1 span{ color:#ff2a3a; }
+  .lead{ margin:10px 0 30px; max-width:820px; color:#aab4c5; font-size:16px; line-height:1.6; }
+  .card{ background:#13141d; border:1px solid #232539; border-radius:16px; padding:18px; margin-bottom:34px; }
+  .card h2{ font-family:'Teko'; font-size:30px; letter-spacing:2px; margin-bottom:4px; }
+  .card h2 small{ font-family:'Oswald'; font-size:14px; color:#7d8aa3; letter-spacing:1px; }
+  .frame{ position:relative; width:1280px; max-width:100%; aspect-ratio:16/9; border-radius:10px;
+          overflow:hidden; border:1px solid #2a2c44; }
+  iframe{ width:1280px; height:720px; border:0; transform-origin:top left; display:block; }
+  .scaler{ width:1280px; height:720px; }
+  .row{ display:flex; gap:12px; margin-top:14px; flex-wrap:wrap; }
+  a.btn{ display:inline-block; text-decoration:none; background:#ff2a3a; color:#fff; font-weight:700;
+         padding:10px 18px; border-radius:8px; font-size:14px; letter-spacing:1px; }
+  a.btn.alt{ background:#2b6dff; }
+  a.btn.ghost{ background:transparent; border:1px solid #39406b; color:#cdd6ea; }
+  .steps{ background:#0f1622; border:1px solid #1d2a3f; border-radius:14px; padding:22px 26px; }
+  .steps h3{ font-family:'Teko'; font-size:26px; letter-spacing:1px; margin-bottom:10px; color:#7fdcff; }
+  .steps ol{ padding-left:20px; line-height:1.9; color:#c4cde0; font-size:15px; }
+  code{ background:#1b2030; padding:2px 7px; border-radius:5px; color:#9fe7ff; font-size:13px; }
+  .note{ color:#ffcf6b; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>BGMI Thumbnails — <span>RAVEN X-SUIT</span></h1>
+  <p class="lead">
+    Two broadcast-quality YouTube thumbnails (1280×720), same character &amp; text, two completely
+    different art directions — built in pure HTML/CSS. Drop your Raven X-Suit cutout PNG into
+    <code>assets/raven.png</code> and both designs fill in automatically.
+  </p>
+
+  <div class="card">
+    <h2>STYLE 1 — CRIMSON INFERNO <small>cinematic red/black • embers • giant hollow display word</small></h2>
+    <div class="frame"><div class="scaler" id="s1"><iframe src="thumbnail-1.html" scrolling="no"></iframe></div></div>
+    <div class="row">
+      <a class="btn" href="thumbnail-1.html" target="_blank">Open full size ↗</a>
+      <a class="btn ghost" href="thumbnail-1.html" target="_blank">Right-click → screenshot 1280×720</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>STYLE 2 — CYBER FROST <small>blue/violet AMV • neon name • scanlines • barcode + socials</small></h2>
+    <div class="frame"><div class="scaler" id="s2"><iframe src="thumbnail-2.html" scrolling="no"></iframe></div></div>
+    <div class="row">
+      <a class="btn alt" href="thumbnail-2.html" target="_blank">Open full size ↗</a>
+      <a class="btn ghost" href="thumbnail-2.html" target="_blank">Right-click → screenshot 1280×720</a>
+    </div>
+  </div>
+
+  <div class="steps">
+    <h3>HOW TO FINISH &amp; EXPORT</h3>
+    <ol>
+      <li><b>Add the character:</b> cut out your Raven X-Suit skin (transparent PNG) and save it as
+        <code>output/assets/raven.png</code>. Both thumbnails pick it up instantly — the dashed placeholder disappears.</li>
+      <li><b>Edit the text:</b> open <code>thumbnail-1.html</code> / <code>thumbnail-2.html</code> and change
+        <code>YOUR NAME HERE</code>, the tagline, and the neon name to your channel/title.</li>
+      <li><b>Export a crisp 1280×720 PNG:</b> open the thumbnail file in Chrome → DevTools (F12) →
+        <code>Ctrl/Cmd&nbsp;+&nbsp;Shift&nbsp;+&nbsp;P</code> → type <i>"Capture node screenshot"</i> and pick the
+        <code>.thumb</code> element. (Or use any HTML-to-image tool.)</li>
+      <li class="note">Tip: keep faces &amp; the LIVE badge inside the safe area — YouTube overlays a
+        duration chip on the bottom-right corner.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  /* responsively scale the 1280px iframes down to fit the page */
+  function fit(){
+    document.querySelectorAll('.frame').forEach(f=>{
+      const s=f.querySelector('.scaler');
+      const scale=f.clientWidth/1280;
+      s.style.transform='scale('+scale+')';
+      f.style.height=(720*scale)+'px';
+    });
+  }
+  window.addEventListener('resize',fit); window.addEventListener('load',fit); fit();
+</script>
+</body>
+</html>
