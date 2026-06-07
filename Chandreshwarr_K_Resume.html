@@ -392,16 +392,53 @@
     }
     .edu-loc { font-size: 0.71rem; color: #94a3b8; text-align: right; margin-top: 2px; }
 
-    /* print */
+    /* ── PRINT / WEASYPRINT ──────────────────── */
     @media print {
-      html { font-size: 10.5px; }
-      body { background: #fff; }
-      .page { box-shadow: none; max-width: 100%; }
-      .sidebar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .main-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      html { font-size: 7.6px; }
+      body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { box-shadow: none; max-width: 100%; grid-template-columns: 188px 1fr; min-height: unset; overflow: hidden; }
+      .sidebar { padding: 18px 13px 18px; gap: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .avatar-ring { width: 62px; height: 62px; font-size: 1.7rem; }
+      .sidebar-name { font-size: 1.15rem; }
+      .sidebar-title { font-size: 0.72rem; }
+      .s-label { font-size: 0.68rem; padding-bottom: 3px; margin-bottom: 3px; }
+      .contact-item { font-size: 0.75rem; gap: 6px; }
+      .contact-item .icon { width: 13px; }
+      .skill-tag { font-size: 0.68rem; padding: 2px 6px; margin: 1px 1px 1px 0; }
+      .tool-row { font-size: 0.72rem; line-height: 1.5; }
+      .tool-row strong { font-size: 0.68rem; }
+      .cert-box { padding: 7px 10px; }
+      .cert-box .cert-title { font-size: 0.75rem; }
+      .cert-box .cert-issuer { font-size: 0.66rem; }
+      .cert-box .cert-meta { font-size: 0.64rem; }
+      .cert-box .cert-note { font-size: 0.64rem; margin-top: 3px; }
+      .main-header { padding: 14px 20px 10px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .mh-name { font-size: 2.1rem; }
+      .mh-role { font-size: 0.82rem; margin-top: 4px; }
+      .mh-tags { gap: 4px; margin-top: 8px; }
+      .mh-tag { font-size: 0.66rem; padding: 2px 7px; }
+      .main-body { padding: 10px 20px 16px; gap: 9px; }
+      .summary-box { padding: 9px 13px; }
+      .summary-box p { font-size: 0.78rem; line-height: 1.55; }
+      .section-head { margin-bottom: 8px; }
+      .section-head h2 { font-size: 0.9rem; }
+      .exp-item { margin-bottom: 8px; }
+      .exp-company { font-size: 0.82rem; }
+      .exp-date { font-size: 0.68rem; padding: 1px 6px; }
+      .exp-role { font-size: 0.74rem; margin-bottom: 4px; }
+      .exp-list { gap: 2px; }
+      .exp-list li { font-size: 0.72rem; line-height: 1.42; padding-left: 11px; }
+      .exp-list li::before { font-size: 0.62rem; }
+      .highlights-grid { gap: 5px; }
+      .hl-item { font-size: 0.7rem; padding: 5px 8px; line-height: 1.35; }
+      .edu-row { padding: 6px 0; }
+      .edu-degree { font-size: 0.78rem; }
+      .edu-school { font-size: 0.7rem; }
+      .edu-date { font-size: 0.68rem; }
+      .edu-loc { font-size: 0.65rem; }
     }
 
-    /* mobile: stack the two columns so text is large and readable */
+    /* mobile: stack columns */
     @media (max-width: 640px) {
       html { font-size: 15px; }
       .page { grid-template-columns: 1fr; box-shadow: none; }
